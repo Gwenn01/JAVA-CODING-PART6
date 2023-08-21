@@ -1,0 +1,92 @@
+import java.util.*;
+class BinaryTree{
+	class Node{
+		int val;
+		Node left;
+		Node right;
+		public Node(int val){
+			this.val = val;
+		}
+	}
+	
+	// ROOT
+	private Node root;
+	
+	// INSERTING
+	// insert ROOT
+	void insertRoot(int val){
+		root = new Node(val);
+	}
+	// insert LEFT
+	void insertLeft(int index, int val){
+		insertLeft(root, index, val);
+	}
+	void insertLeft(Node node, int index, int val){
+		if(node == null){
+			return;
+		}
+		if(node.val == index){
+			node.left = new Node(val);
+			return;
+		}
+		insertLeft(node.left, index, val);
+		insertLeft(node.right, index, val);
+	}
+	// insert RIGHT
+	void insertRight(int index, int val){
+		insertRight(root, index, val);
+	}
+	void insertRight(Node node, int index, int val){
+		if(node == null){
+			return;
+		}
+		if(node.val == index){
+			node.right = new Node(val);
+			return;
+		}
+		insertRight(node.left, index, val);
+		insertRight(node.right, index, val);
+	}
+	// DISPLAY
+	void display(){
+		display(root, "Root Node: ");
+	}
+	void display(Node node, String details){
+		if(node == null){
+			return;
+		}
+	System.out.println(details + node.val);
+		display(node.left, "Left child of " + node.val + ": ");
+		display(node.right, "Right child of " + node.val + ": ");
+	}
+	// DISPLAY ANS
+	void ans(){
+		System.out.println("Ans: " + inorderTraversal(root));	
+	}
+	// BINARY TREE INORDER TRAVERSAL L -> N -> R			
+	public List<Integer> inorderTraversal(Node root) {
+	   ArrayList<Integer> ans = new ArrayList<>();
+       inorderTraversal(root, ans);
+       return ans;
+    }
+    public void inorderTraversal(Node node, ArrayList<Integer> list) {
+        if(node == null){
+        	return;
+        }
+        inorderTraversal(node.left, list);
+        list.add(node.val);
+        inorderTraversal(node.right, list);
+    }	
+    
+}
+public class Main{	
+	public static void main(String[] args) {	
+		BinaryTree tree = new BinaryTree();
+		tree.insertRoot(1);
+		tree.insertRight(1, 2);
+		tree.insertLeft(2, 3);
+		
+		tree.display();
+		tree.ans();
+	}
+}

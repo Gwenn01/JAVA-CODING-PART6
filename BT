@@ -1,0 +1,79 @@
+import java.util.*;
+class BinaryTree{
+	class Node{
+		int val;
+		Node left;
+		Node right;
+		public Node(int val){
+			this.val = val;
+		}
+	}
+	
+	// ROOT
+	private Node root;
+	
+	// INSERTING
+	// insert ROOT
+	void insertRoot(int val){
+		root = new Node(val);
+	}
+	// insert LEFT
+	void insertLeft(int index, int val){
+		insertLeft(root, index, val);
+	}
+	void insertLeft(Node node, int index, int val){
+		if(node == null){
+			return;
+		}
+		if(node.val == index){
+			node.left = new Node(val);
+			return;
+		}
+		insertLeft(node.left, index, val);
+		insertLeft(node.right, index, val);
+	}
+	// insert RIGHT
+	void insertRight(int index, int val){
+		insertRight(root, index, val);
+	}
+	void insertRight(Node node, int index, int val){
+		if(node == null){
+			return;
+		}
+		if(node.val == index){
+			node.right = new Node(val);
+			return;
+		}
+		insertRight(node.left, index, val);
+		insertRight(node.right, index, val);
+	}
+	// DISPLAY
+	void display(){
+		display(root, "Root Node: ");
+	}
+	void display(Node node, String details){
+		if(node == null){
+			return;
+		}
+	System.out.println(details + node.val);
+		display(node.left, "Left child of " + node.val + ": ");
+		display(node.right, "Right child of " + node.val + ": ");
+	}		
+}
+public class Main{	
+	public static void main(String[] args) {	
+		BinaryTree tree = new BinaryTree();
+		
+		tree.display();
+	}
+} BinaryTree();
+		tree.addRoot(s);
+		tree.display();
+	}
+}		Scanner s = new Scanner(System.in);
+		
+		BinaryTree tree = new BinaryTree();
+		tree.addRoot(s);
+		tree.display();
+	}
+}

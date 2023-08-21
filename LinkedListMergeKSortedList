@@ -1,0 +1,70 @@
+import java.util.*;
+class Node{
+		int val;
+		Node next;
+		public Node(int val){
+			this.val = val;
+		}
+		public Node(int val, Node next){
+			this.val = val;
+			this.next = next;
+		}
+	}
+public class Main {
+	public static void main(String[] args) {
+		Node lists[] = new Node[3];
+		
+		lists[0] = new Node(1);
+		lists[0].next = new Node(4);
+		lists[0].next.next = new Node(5);
+		
+		lists[1] = new Node(1);
+		lists[1].next = new Node(3);
+		lists[1].next.next = new Node(4);
+		
+		lists[2] = new Node(2);
+		lists[2].next = new Node(6);
+		
+		Node ans = mergeKList(lists);
+		// display
+	    Node temp = ans;
+	    while(temp != null){
+	    	System.out.print(temp.val + " -> ");
+	    	temp = temp.next;
+	    }
+	    
+	}
+	// MERGE K SORTED lists
+	static Node mergeKList(Node[] lists){
+		if(lists.length == 0){
+			return null;
+		}
+		// convert into array and sort
+		ArrayList<Integer> list = new ArrayList<>();		
+	   for(int i = 0; i < lists.length; i++){
+	   	while(lists[i] != null){
+	   		list.add(lists[i].val);
+	   		lists[i] = lists[i].next;
+	   	}
+		}
+	    Collections.sort(list);
+	    // then convert it again into link list
+		
+		return convert(list);
+	}
+	static Node convert(ArrayList<Integer> list){
+		if(list.size() == 0){
+			return null;
+		}
+		
+		Node head = new Node(list.get(0));
+		Node current = head;
+		
+		for(int i = 1; i < list.size(); i++){
+			current.next = new Node(list.get(i));
+			current = current.next;
+		}
+		
+		return head;
+	}
+}

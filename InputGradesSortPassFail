@@ -1,0 +1,53 @@
+import java.util.*;
+class Students{
+
+	int grade[] = new int[5];
+	
+	void inputs(){
+		Scanner s = new Scanner(System.in);
+		System.out.print("English: ");
+		this.grade[0] = s.nextInt();
+		System.out.print("Math: ");
+		this.grade[1] = s.nextInt();
+		System.out.print("Science: ");
+		this.grade[2] = s.nextInt();
+		System.out.print("Filipino: ");
+		this.grade[3] = s.nextInt();
+		System.out.print("Mapeh: ");
+		this.grade[4] = s.nextInt();
+	}
+	boolean ave(){
+		int sum = 0;
+		for(int i = 0; i < grade.length; i++){
+			sum += grade[i];
+		}
+		int ave = sum / grade.length;
+		
+		return ave >= 75;
+	}
+	
+}
+public class Main {
+	public static void main(String[] args) {
+		Students students[] = new Students[3];
+		
+		for(int i = 0; i < students.length; i++){
+			students[i] = new Students();
+			System.out.println("STUDENT " + (i+1));
+			students[i].inputs();
+			System.out.println();
+		}
+		
+		for(int i = 0; i < students.length; i++){
+			if(students[i].ave()){
+				System.out.println("Student" + (i+1) + " PASSED");
+			}
+		}
+		for(int i = 0; i < students.length; i++){
+			if(!students[i].ave()){
+				System.out.println("Student" + (i+1) + " FAILED");
+			}
+		}
+		
+	}
+}

@@ -1,0 +1,147 @@
+class Linked {
+    Node head;
+    Node list1;
+    Node list2;
+    
+    public Linked() {
+    }
+
+    // add last to list1
+    void addLastList1(int val) {
+        Node node = new Node(val);
+        if (list1 == null) {
+            list1 = node;
+        } else {
+            Node temp = list1;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = node;
+        }        
+    }
+    // add last to list2
+    void addLastList2(int val) {
+        Node node = new Node(val);
+        if (list2 == null) {
+            list2 = node;
+        } else {
+            Node temp = list2;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = node;
+        }        
+    }
+    // display list1
+    void display1() {
+        Node temp = list1;
+        if (temp == null) {
+            return;
+        }
+        System.out.println("Head: " + list1.val);
+        while (temp.next != null) {
+            System.out.print(temp.val + " -> ");
+            temp = temp.next;
+        }
+        System.out.print(temp.val);
+        System.out.print(" End");
+    }
+    // display list2
+    void display2() {
+        Node temp = list2;
+        if (temp == null) {
+            return;
+        }
+        System.out.println("Head: " + list2.val);
+        while (temp.next != null) {
+            System.out.print(temp.val + " -> ");
+            temp = temp.next;
+        }
+        System.out.print(temp.val);
+        System.out.print(" End");
+    }
+    // MERGE TWO SORTED LIST //
+    void merge(){
+    	Node node = new Node();
+    	head = node;
+    	
+    	Node temp = head;
+    	while(list1 != null && list2 != null){
+    	  if(list1.val < list2.val){
+    	  	temp.next = list1;
+    	  	list1 = list1.next;
+       	}else{
+       		temp.next = list2;
+       		list2 = list2.next;
+       	}	
+       	temp = temp.next;
+    	}		
+    	while(list1 != null){
+    		temp.next = list1;
+    		list1 = list1.next;
+    		temp = temp.next;
+    	}
+    	while(list2 != null){
+    		temp.next = list2;
+    		list2 = list2.next;
+    		temp = temp.next;
+    	}
+    }    
+    //
+    // display the result;
+	void display(){
+		Node temp = head.next;
+		if(temp == null){
+			return;
+		}
+		while(temp.next != null){
+			System.out.print(temp.val + " -> ");
+			temp = temp.next;
+		}
+		System.out.print(temp.val);
+		System.out.print(" End");
+	}
+//
+    private class Node {
+        int val;
+        Node next;
+        
+        public Node(){
+        	
+        }
+        public Node(int val) {
+            this.val = val;
+        }
+
+        public Node(int val, Node next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Linked list = new Linked();
+        list.addLastList1(1);
+        list.addLastList1(2);
+        list.addLastList1(4);
+
+        list.addLastList2(1);
+        list.addLastList2(3);
+        list.addLastList2(4);
+
+        list.display1();
+        System.out.println();
+        list.display2();
+        
+        System.out.println();
+        System.out.println("MERGE TWO LIST");
+        list.merge();
+        list.display();
+    }
+}
+    list.merge();
+        list.display();
+    }
+}

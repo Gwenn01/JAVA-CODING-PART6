@@ -1,0 +1,57 @@
+import java.util.*;
+public class Main {
+	public static void main(String[] args) {
+		int arr[] = {1, 2, 2, 2};
+		for(List<Integer> list: subsetDup(arr)){
+			System.out.println(list);
+		}
+	}
+	static List<List<Integer>> subsetDup(int[] arr){
+		// sort the array to avoid 212, through that we cant find the duplicate
+		Arrays.sort(arr);
+			
+		List<List<Integer>> container = new ArrayList<>();
+		// create empty list
+		container.add(new ArrayList<>());
+		// stroring prev so taht if duplicate store obly the new add in container
+		int prev = 0;
+		for(int i = 0; i < arr.length; i++){
+			// check id duplicate, if is it add the whole count, but if not add the half of count
+			boolean isDup = false;
+			int start = 0;
+			int size = container.size();
+			// check for 2 duplicate the start if prev
+			if((i > 0) && arr[i] == arr[i-1]){
+				isDup = true;
+				start = prev;
+			}
+			// iterate through the size of container
+			// store how many count
+			int count = 0;
+			while(start < size){
+				List<Integer> list = new ArrayList<>();
+				// add the prev
+				list.addAll(container.get(start));
+				// add the current
+				list.add(arr[i]);
+				container.add(list);
+				count++;
+			    start++;
+			}
+			// check if start
+			if(prev != 0){
+				// check if duplicate, if its then add the whole count else divide it by 2
+				if(isDup){
+					prev = prev + count;
+				}else{
+					prev = prev + count/2;
+				}
+			}else{
+				prev = count;	
+			}
+		}
+		
+		return container;
+	}
+}}
+}}

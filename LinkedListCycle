@@ -1,0 +1,114 @@
+class Linked{
+	Node head;
+	Node tail;
+	int size;	
+	public Linked(){
+		this.size = 0;
+	}
+	boolean isEmpty(){
+		return size == 0;
+	}
+	// add last
+	void addLast(int val){
+		Node node = new Node(val);
+		if(isEmpty()){
+			head = node;
+		}else{
+			Node temp = head;
+			while(temp.next != null){
+				temp = temp.next;
+			}
+			temp.next = node;
+			tail = node;
+		}
+		size++;
+	}
+	// connect the tail int pos
+	void pos(int pos){
+		Node temp = head;
+		for(int i = 0; i < pos; i++){
+			temp = temp.next;
+		}
+		tail.next = temp;
+	}
+	// CHECK LINKED LIST CYCLE
+	boolean hasCycle(){
+		Node slow = head;
+		Node fast = head;
+		do{
+			if(fast == null || fast.next == null){
+				break;
+			}
+			slow = slow.next;
+			fast = fast.next.next;
+			if(slow == fast){
+				return true;
+			}
+		}while(slow != fast);
+		
+		return false;
+	}	
+	//
+		// display
+	void display(){
+		Node temp = head;
+		if(temp == null){
+			return;
+		}
+		System.out.println("Head: " + head.val + " Tail: " + tail.val);
+		do{
+			System.out.print(temp.val + " -> ");
+			temp = temp.next;
+		}while(temp != tail);
+		System.out.print(tail.val);
+		System.out.print(" End");
+	}
+	private class Node{
+		int val;
+		Node next;
+		public Node(int val){
+			this.val = val;
+		}
+		public Node(int val, Node next){
+			this.val = val;
+			this.next = next;
+		}
+	}
+}
+public class Main {
+	public static void main(String[] args) {
+		Linked list = new Linked();
+  /*	list.addLast(3);
+		list.addLast(2);
+		list.addLast(0);
+		list.addLast(-4);
+		list.pos(1);
+	*/
+	    list.addLast(1);
+	    list.addLast(2);
+	    list.addLast(3);
+	    list.addLast(5);
+	    list.addLast(6);
+		list.addLast(7);
+	    list.addLast(8);
+	    list.addLast(9);
+	    list.pos(5);
+	    //list.pos(0);
+	    
+	    
+		list.display();
+		System.out.println();
+		
+	    boolean ans = list.hasCycle();
+	    System.out.println(ans);
+	
+		
+	}
+}tem.out.println();
+		
+	    boolean ans = list.hasCycle();
+	    System.out.println(ans);
+	
+		
+	}
+}}

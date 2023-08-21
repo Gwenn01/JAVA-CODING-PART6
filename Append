@@ -1,0 +1,21 @@
+import java.util.*;
+public class Main {
+	public static void main(String[] args) {
+		int[] a1 = {1, 2, 3, 4, 5};
+		int[] a2 = {6, 7, 8, 9, 10};
+		System.out.println(Arrays.toString(append(a1, a2)));
+	}
+	public static int[] append(int[] a1, int[] a2){
+		int[] result = new int[a1.length + a2.length];
+		int i = 0;
+		for(int j = 0; j < a1.length; j++){
+			result[i] = a1[j];
+			i++;
+		}
+		for(int k = 0; k < a2.length; k++){
+			result[i] = a2[k];
+			i++;
+		}			
+		return result;
+	}
+}

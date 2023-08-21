@@ -1,0 +1,37 @@
+import java.util.*;
+public class Main {
+	public static void main(String[] args) {
+		int num[] = {1, 2, 3};
+		List<List<Integer>> list = subset(num);        for(List<Integer> nums: list){
+			System.out.println(nums);
+		}
+	}
+		static List<List<Integer>> subset(int num[]){
+		List<List<Integer>> container = new ArrayList<>();
+		///
+	    container.add(new ArrayList<>());
+	    ///
+	    for(int n = 0; n < num.length; n++){
+	    	List<Integer> outer = new ArrayList<>();
+	    	for(int i = 0; i < num.length; i++){
+	    		List<Integer> internal = new ArrayList<>();
+	    		if(n == i){
+	    			internal.add(num[i]);
+	    			container.add(internal);
+	    		}
+	            if(n != i){
+	            	outer.add(num[i]);
+	            }
+	    	}
+	    	container.add(outer);
+	    }
+	    ///
+	    List<Integer> whole = new ArrayList<>();
+	   for(int ar: num){
+	    whole.add(ar);
+	   }
+	   container.add(whole);
+	   ///
+	    return container;
+		}
+}}

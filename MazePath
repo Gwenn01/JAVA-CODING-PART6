@@ -1,0 +1,113 @@
+import java.util.*;
+public class Main {
+	public static void main(String[] args) {
+		int ans = mazePathCount(3, 3);
+		System.out.println(ans);
+		//
+		ArrayList<String> list = path("", 3, 3);
+		System.out.println(list);
+		//
+		ArrayList<String> list2 = pathD("", 3, 3);
+		System.out.println(list2);
+		//
+		System.out.println();
+		boolean[][] maze ={
+			{true, true, true},
+			{true, true, true},
+			{true, true, true}
+		};
+		ArrayList<String> list3 = pathAll("", maze, 0, 0);
+		System.out.println(list3);
+	}
+	//
+	static int mazePathCount(int r, int c){
+	   if(r == 1 || c == 1){
+	   	return 1;
+		}		
+		int left = mazePathCount(r-1, c);
+		int right = mazePathCount(r, c-1);;	
+		return left + right;				
+	}
+	//
+	static ArrayList<String> path(String p, int r, int c){
+	   if(r == 1 && c == 1){
+	   	ArrayList<String> list = new ArrayList<>();
+	   	list.add(p);
+	   	return list;
+		}
+	ArrayList<String> list = new ArrayList<>();	   
+	   if(r > 1){
+	      list.addAll(path(p + "D", r-1, c));		
+	   }
+	   if(c > 1){
+		 list.addAll(path(p + "R", r, c-1));			
+	   }
+	   return list;
+	}
+	//
+	static ArrayList<String> pathD(String p, int r, int c){
+	   if(r == 1 && c == 1){
+	   	ArrayList<String> list = new ArrayList<>();
+	   	list.add(p);
+	   	return list;
+		}
+	ArrayList<String> list = new ArrayList<>();
+	    
+	   if(r > 1 && c > 1){
+	      list.addAll(pathD(p + "D", r-1, c-1)); 	
+	   }	   	   
+	   if(r > 1){
+	      list.addAll(pathD(p + "V", r-1, c));		
+	   }
+	   if(c > 1){
+		 list.addAll(pathD(p + "H", r, c-1));			
+	   }
+	   return list;
+	}
+    //
+    static ArrayList<String> pathO(String p, boolean[][] maze,  int r, int c){
+	   if(r == maze.length-1 && c == maze.length-1){
+	   	ArrayList<String> list = new ArrayList<>();
+	   	list.add(p);
+	   	return list;
+		}
+	ArrayList<String> list = new ArrayList<>();	   
+	   if(!maze[r][c]){
+	   	return list;
+	   }
+	   if(r < maze.length-1){
+	      list.addAll(pathO(p + "D", maze, r+1, c));		
+	   }
+	   if(c < maze.length-1){
+		 list.addAll(pathO(p + "R", maze,  r, c+1));			
+	   }
+	   return list;
+    }
+    //
+    static ArrayList<String> pathAll(String p, boolean[][] maze,  int r, int c){
+	   if(r == maze.length-1 && c == maze.length-1){
+	   	ArrayList<String> list = new ArrayList<>();
+	   	list.add(p);
+	   	return list;
+		}
+	ArrayList<String> list = new ArrayList<>();	   
+	   if(!maze[r][c]){
+	   	return list;
+	   }
+	   maze[r][c] = false;
+	   if(r < maze.length-1){
+	      list.addAll(pathAll(p + "D", maze, r+1, c));		
+	   }
+	   if(c < maze.length-1){
+		 list.addAll(pathAll(p + "R", maze,  r, c+1));			
+	   }
+	   if(r > 0){
+		 list.addAll(pathAll(p + "U", maze,  r-1, c));	
+	   }
+	    if(c > 0){
+		 list.addAll(pathAll(p + "L", maze,  r, c-1));	
+	   }
+	   maze[r][c] = true;
+	   return list;
+	}	
+}

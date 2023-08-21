@@ -1,0 +1,163 @@
+class LinkedList{
+	
+	Node head;
+	Node tail;
+	int size;
+	
+	public LinkedList(){
+		this.size = 0;
+	}
+	// add in first element
+	void insertFirst(int val){
+		Node node = new Node(val);
+		node.next = head;
+		head = node;
+		
+		if(tail == null){
+			tail = head;
+		}
+		size += 1;
+	}
+	// add in last element
+	void insertLast(int val){
+		Node node = new Node(val);
+		if(tail == null){
+			insertFirst(val);
+			return;
+		}
+		tail.next = node;
+		tail = node;
+		size += 1;
+	}
+	// add in give index
+	void insertIndex(int index, int val){		
+		if(index == 0){
+			insertFirst(val);
+			return;
+		}
+		if(index == this.size){
+			insertLast(val);
+			return;
+		}
+		Node temp = head;
+		for(int i = 1; i < index; i++){
+			temp = temp.next;
+		}
+		Node node = new Node(val, temp.next);
+		temp.next = node;
+		size += 1;
+	}
+	// delete in first element
+     int deleteFirst(){
+     	int val = head.val;
+		head = head.next;
+		if(head == null){
+			tail = null;
+		}
+		size -= 1;
+		return val;
+	}
+	// delete in last element
+	int deleteLast(){
+		Node temp = head;
+		for(int i = 1; i < size-1; i++){			
+			temp = temp.next;			
+		}
+		tail = temp;
+		int val = temp.next.val;
+		temp.next = null;
+		size -= 1;
+		return val;
+	}
+	// delete in give index
+	int deleteIndex(int index){
+		if(index == 0){
+			deleteFirst();
+		}
+		if(index == size -1){
+			deleteLast();
+		}
+		Node temp = head;
+		for(int i = 1; i < index; i++){
+			temp = temp.next;
+		}
+	    int val = temp.next.val;
+		temp.next = temp.next.next;
+		size -= 1;
+		return val;
+	}
+	// fint using value;
+	int findValue(int value){
+		Node temp = head;
+		for(int i = 0; i < size; i++){
+			if(temp.val == value){
+				return i;
+			}
+			temp = temp.next;
+		}
+		return -1;
+	}
+	// find using index
+	int findIndex(int index){
+		Node temp = head;
+		for(int i = 0; i < index; i++){
+			temp = temp.next;
+		}
+		return temp.val;
+	}
+	// display node
+	void display(){
+		Node temp = head;
+		System.out.println("Head: " + head.val);
+		while(temp != null){
+			System.out.print(temp.val + " ");
+			temp = temp.next;
+		}
+	}
+	// size
+	void size(){
+		System.out.println("Size: " + size);
+	}
+	//
+	public class Node{
+	    int val;
+	    Node next;		
+		Node(int val){
+			this.val = val;
+		}
+		Node(int val, Node next){
+			this.val = val;
+			this.next = next;
+		}
+	}
+  //	
+}
+///
+class Main {
+	public static void main(String[] args) {
+		LinkedList list = new LinkedList();
+		list.insertFirst(45);
+		list.insertFirst(6);
+    	list.insertFirst(5);
+        list.insertLast(15);
+		list.insertFirst(10);
+		list.insertFirst(20);
+		list.insertFirst(87);		
+        list.insertIndex(3, 50);
+        list.display();
+        System.out.println();
+        System.out.println("Delete first: " + list.deleteFirst());
+        System.out.println("Delete last: " + list.deleteLast());
+       System.out.println("Delete index" + list.deleteIndex(3));    
+		list.display();
+		System.out.println();
+		list.insertFirst(55);
+		list.insertFirst(16);
+    	list.insertFirst(71);
+    	list.display();
+    	System.out.println();
+    	System.out.println("Find Value: " + list.findValue(55));
+    	System.out.println("Find Index: " + list.findIndex(2));
+	} 
+}
+}

@@ -1,0 +1,39 @@
+import java.util.*;
+public class Main {
+	public static void main(String[] args) {
+		int nums[] = {0, 0, 1, 1, 1, 1, 2, 3, 3};
+		//int nums[] = {1, 1, 1, 1};
+		int ans = removeDuplicates(nums);
+		System.out.println(Arrays.toString(nums));
+		System.out.println(ans);
+		
+	}
+	static int removeDuplicates(int[] nums){
+	    if(nums.length == 2) {
+	    	return 2;
+	    }
+	    // store how many remove to count in the new array
+	    // storing length so that we dont have to check the remaining if we move a head
+	    // check the 3 element if its equal then remove, it should only 2 element are equal	    
+	    int removeE = 0;
+	    int length = nums.length-1;
+ 	   int i = 0, j = 1, k = 2;
+	   
+	   while(k <= length){
+	   	if(nums[i] == nums[j] && nums[i] == nums[k]){
+	   	   // moving a head
+	   	   for(int h = i; h < length; h++){
+	   	   	nums[h] = nums[h+1];
+	   	   }
+	   	   removeE++;
+	   	   length--;
+	   	}else{
+	   		i++;
+	   		j++;
+	   		k++;
+	   	}
+	   }
+	   int count = nums.length - removeE;
+	   return count;
+	}
+}

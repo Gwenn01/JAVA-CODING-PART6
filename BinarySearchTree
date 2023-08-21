@@ -1,0 +1,194 @@
+class BinarySearchTree{
+	class Node{
+		private int val;
+		private int height = 0;
+		public Node left;
+		public Node right;
+		
+		public Node(int val){
+			this.val = val;
+		}
+		int getValue(){
+			return this.val;
+		}
+	}
+	
+	public BinarySearchTree(){		
+	}
+		
+	// ROOT
+	private Node root;
+	
+	
+	// INSERT USING LOOP
+	void insert(int val){
+		Node node = new Node(val);
+		// if root equal to null add first
+		if(root == null){
+			root = node;
+		}else{
+			Node temp = root;
+			Node prev = null;
+			// travel til reach
+			while(temp != null){
+				// store prev val to point
+				prev = temp;
+				if(val <= temp.val){
+					temp = temp.left;
+				}else{
+					temp = temp.right;
+				}
+			}
+			// then if we reach, point it
+			if(val <= prev.val){
+			    prev.left = node;
+			}else{
+				prev.right = node;	
+			}
+		}				
+	}
+	// INSERT USING RECURSION
+	void insertR(int val){
+		if(root == null){
+			root = new Node(val);
+		}
+		insertR(val, root);
+	}
+	Node insertR(int val, Node node){
+		if(node == null){
+			Node newNode = new Node(val);
+			return newNode;
+		}
+		if(val < node.val){
+			node.left = insertR(val, node.left);
+		}
+		if(val > node.val){
+			node.right = insertR(val, node.right);
+		}
+		
+	    node.height = Math.max(getHeight(node.left), getHeight(node.right)) + 1;
+		return node;
+	}
+	// INSERT SORTED ARRAY
+	void insertSorted(int[] nums){
+		insertSorted(nums, 0, nums.length);
+	}
+	void insertSorted(int[] nums, int start, int end){
+		if(start >= end){
+			return;
+		}
+		int mid = ((start + end)-1) / 2;
+		
+		insertR(nums[mid]);
+		insertSorted(nums, start, mid);
+		insertSorted(nums, mid+1, end);
+	}
+	// GET HEIGHT
+	 int getHeight(){
+		return getHeight(root);
+	}
+	int getHeight(Node node){
+			if(node == null){
+				return -1;
+			}
+			return  node.height;
+	}
+	// CHECK IF ITS BALANCED
+	boolean balanced(){
+		return balanced(root);
+	}
+	boolean balanced(Node node){
+		if(node == null){
+			return true;
+		}
+		return Math.abs(getHeight(node.left) - getHeight(node.right)) <= 1 && balanced(node.left) && balanced(node.right);
+	}
+	// IMPLEMENT BT HEIGHT
+	int BTHeight(){
+		return BTHeight(root);
+	}
+	int BTHeight(Node node){
+		if(node == null){
+			return 0;
+		}
+		int leftTHeight = BTHeight(node.left);
+		int rightTHeight = BTHeight(node.right);
+		return Math.max(leftTHeight, rightTHeight) + 1;
+	}
+	// IS EMPTY
+	boolean isEmpty(){
+		return root == null;
+	}
+	// DISPLAY
+	void display(){
+		display(root, "Root Node: ");
+		System.out.println("Height: " + getHeight(root));
+		System.out.println("isBalance: " + balanced());
+	}
+	void display(Node node, String details){
+		if(node == null){
+			return;
+		}
+	System.out.println(details + node.val);
+		display(node.left, "Left child of " + node.val + ": ");
+		display(node.right, "Right child of " + node.val + ": ");
+	}	
+	// TRAVERSAL	
+	// PRE-ORDER TRAVERSAL
+	// N -> L -> R
+	void preOrder(){
+		preOrder(root);
+	}
+	void preOrder(Node node){
+		if(node == null){
+			return;
+		}
+		System.out.print(node.val + " -> ");
+		preOrder(node.left);
+		preOrder(node.right);
+	}
+	// INORDER TRAVERSAL
+	// L -> N -> R
+	void inOrder(){
+		inOrder(root);
+	}
+	void inOrder(Node node){
+		if(node == null) {
+			return;
+		}
+		inOrder(node.left);
+		System.out.print(node.val + " -> ");
+		inOrder(node.right);
+	}
+	// POST ORDER TRAVERSAL
+	// L -> R -> N
+	void postOrder(){
+		postOrder(root);
+	}
+	void postOrder(Node node){
+			if(node == null) {
+			return;
+		}
+		postOrder(node.left);	
+		postOrder(node.right);
+		System.out.print(node.val + " -> ");
+	}
+}
+public class Main {
+	public static void main(String[] args) {
+		BinarySearchTree tree = new BinarySearchTree();
+	/*	tree.insertR(15);
+		tree.insertR(10);
+		tree.insertR(20);
+		tree.insertR(25);
+    	tree.insertR(18);
+		tree.insertR(11);
+		tree.insertR(5);
+		tree.insertR(6); 
+		tree.display(); */
+		int nums[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+		tree.insertSorted(nums);
+		tree.display();
+	}
+}	}
+}}

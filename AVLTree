@@ -1,0 +1,199 @@
+class AVLTree{
+	class Node{
+		private int val;
+		private int height = 0;
+		public Node left;
+		public Node right;
+		
+		public Node(int val){
+			this.val = val;
+		}
+		int getValue(){
+			return this.val;
+		}
+	}
+	
+	public AVLTree(){		
+	}
+		
+	// ROOT
+	private Node root;
+	
+	// INSERT USING RECURSION
+	void insertR(int val){
+		if(root == null){
+			root = new Node(val);
+		}
+		root = insertR(val, root);
+	}
+	Node insertR(int val, Node node){
+		if(node == null){
+			Node newNode = new Node(val);
+			return newNode;
+		}
+		if(val < node.val){
+			node.left = insertR(val, node.left);
+		}
+		if(val > node.val){
+			node.right = insertR(val, node.right);
+		}
+		
+	    node.height = Math.max(getHeight(node.left), getHeight(node.right)) + 1;
+	    
+	    if(!balanced(node)){
+	    	display();
+	    	System.out.println();
+	    	return selfBalance(node);
+	    }else{
+	    	return node;
+	    }		
+	}
+	// OWN IMPLEMENTATION
+	// SELF BALANCING
+	Node selfBalance(Node node){
+		if(node.left != null && node.left.left != null){
+		  // Its left left
+		  System.out.println("Left Left");
+		  return leftLeftRotate(node);
+		}else if(node.left != null && node.left.right != null){
+		  // its left right
+		  System.out.println("Left Right");
+		  return leftRightRotate(node);
+		}else if(node.right != null && node.right.right != null){
+		 // its right right
+		 System.out.println("Right Right");
+     	return rightRightRotate(node);
+		}else if(node.right != null && node.right.left != null){
+		// its right left
+		System.out.println("Right Left");
+		return rightLeftRotate(node);
+		}
+		return node;	
+	}
+	// P = parent C = child G = grandchild
+	// Left Left Rotate
+	Node leftLeftRotate(Node p){
+		Node c = p.left;
+		Node t = c.right;
+		c.right = p;
+		p.left = t;
+		
+		p.height = Math.max(getHeight(p.left), getHeight(p.right)) + 1;
+		c.height = Math.max(getHeight(c.left), getHeight(c.right)) + 1;
+		
+		return c;
+	}
+	// Left Right Rotate
+	Node leftRightRotate(Node p){
+		Node g = p.left.right;
+		Node c = p.left;
+		Node t1 = g.left;
+		Node t2 = g.right;
+		g.left = c;
+		g.right = p;
+		
+		c.right = t1;
+		p.left = t2;
+		
+		p.height = Math.max(getHeight(p.left), getHeight(p.right)) + 1;
+		c.height = Math.max(getHeight(c.left), getHeight(c.right)) + 1;
+		g.height = Math.max(getHeight(g.left), getHeight(g.right)) + 1;
+		
+		return g;
+	}
+	// Right Right Rotate
+	Node rightRightRotate(Node p){
+		Node c = p.right;
+		Node t = c.left;
+		c.left = p;
+		p.right = t;
+		
+		p.height = Math.max(getHeight(p.left), getHeight(p.right)) + 1;
+		c.height = Math.max(getHeight(c.left), getHeight(c.right)) + 1;
+		
+		return c;
+	}
+	// Right Left Rotate
+	Node rightLeftRotate(Node p){
+		Node g = p.right.left;
+		Node c = p.right;
+		Node t1 = g.left;
+		Node t2 = g.right;
+		g.right = c;
+		g.left = p;
+
+		c.left = t2;
+		p.right = t1;
+		
+		p.height = Math.max(getHeight(p.left), getHeight(p.right)) + 1;
+		c.height = Math.max(getHeight(c.left), getHeight(c.right)) + 1;
+		g.height = Math.max(getHeight(g.left), getHeight(g.right)) + 1;
+		
+		
+		return g;
+	}
+	// CHECK IF ITS BALANCED
+	boolean balanced(){
+		return balanced(root);
+	}
+	boolean balanced(Node node){
+		if(node == null){
+			return true;
+		}
+		return Math.abs(getHeight(node.left) - getHeight(node.right)) <= 1 && balanced(node.left) && balanced(node.right);
+	}
+	// GET HEIGHT
+	 int getHeight(){
+		return getHeight(root);
+	}
+	int getHeight(Node node){
+			if(node == null){
+				return -1;
+			}
+			return  node.height;
+	}
+	// DISPLAY
+	void display(){
+		display(root);
+	}
+	void display(Node root){
+		display(root, "Root Node: ");
+		System.out.println("Height: " + getHeight(root));
+		System.out.println("isBalance: " + balanced());
+	}
+	void display(Node node, String details){
+		if(node == null){
+			return;
+		}
+	System.out.println(details + node.val);
+		display(node.left, "Left child of " + node.val + ": ");
+		display(node.right, "Right child of " + node.val + ": ");
+	}	
+}
+public class Main {
+	public static void main(String[] args) {
+		System.out.println("SELF BALANCING AVL TREE");
+		AVLTree avl = new AVLTree();
+		/* test left left
+		avl.insertR(15);
+		avl.insertR(10);
+		avl.insertR(20);
+		avl.insertR(5);
+		avl.insertR(2);
+		avl.insertR(1);
+		avl.display();
+		*/
+		avl.insertR(15);
+		avl.insertR(20);
+		avl.insertR(25);
+		avl.insertR(30);
+		avl.insertR(27);
+		avl.insertR(35);
+		System.out.println();
+		System.out.println("Final output");
+		avl.display();
+		
+		
+		
+	}
+}

@@ -1,0 +1,15 @@
+public class Main {
+	public static void main(String[] args) {
+		factors(45);
+	}
+	static void factors(int n){
+		int multiply = 3;
+		int lastDigits = n % 10;
+		System.out.print("3 * ");
+		while(multiply != n){
+		  	multiply *= 3 * lastDigits;
+		  	System.out.print("3 * ");
+		}
+		System.out.print(" " + lastDigits);
+	}
+}

@@ -1,0 +1,112 @@
+class Linked{
+	Node head;
+	int size;	
+	public Linked(){
+		this.size = 0;
+	}
+	boolean isEmpty(){
+		return size == 0;
+	}
+	// add last
+	void addLast(int val){
+		Node node = new Node(val);
+		if(isEmpty()){
+			head = node;
+		}else{
+			Node temp = head;
+			while(temp.next != null){
+				temp = temp.next;
+			}
+			temp.next = node;
+		}
+		size++;
+	}
+// REMOVE NTH NODE FORM THE END //
+    Node removeNthFromEnd(Node head, int n){
+    	if(head == null || (head.next == null && n == 1)){
+    		return null;
+    	}
+        // get the length to reach the end nth
+    	Node temp = head;
+    	int length = 0;
+    	while(temp != null){
+    		temp = temp.next;
+    		length++;
+    	}
+    	// if n is equal to length remove first
+    	if(length == n){
+    		head = head.next;
+    	}else{
+	    	int rotation = length - n;
+	    	Node current = head;
+	    	for(int i = 1; i < rotation; i++){
+	    	  current = current.next;	
+	    	}
+	    	if(current.next != null){
+	    		current.next = current.next.next;
+	    	}else{
+	    		current.next = null;
+	    	}
+    	}
+      return head;	
+    }
+    
+    // display ans
+    int n = 8;
+	void displayAns(){
+		Node temp = removeNthFromEnd(this.head, n);
+		if(temp == null){
+			return;
+		}
+		System.out.println("Head: " + head.val);
+		while(temp.next != null){
+			System.out.print(temp.val + " -> ");
+			temp = temp.next;
+		}
+		System.out.print(temp.val);
+		System.out.print(" End");
+	}
+    // display
+	void display(){
+		Node temp = head;
+		if(temp == null){
+			return;
+		}
+		System.out.println("Head: " + head.val);
+		while(temp.next != null){
+			System.out.print(temp.val + " -> ");
+			temp = temp.next;
+		}
+		System.out.print(temp.val);
+		System.out.println(" End");
+		System.out.println();
+	}
+	private class Node{
+		int val;
+		Node next;
+		public Node(int val){
+			this.val = val;
+		}
+		public Node(int val, Node next){
+			this.val = val;
+			this.next = next;
+		}
+	}
+}
+public class Main {
+	public static void main(String[] args) {
+		Linked list = new Linked();
+		list.addLast(1);	
+		list.addLast(2);
+		list.addLast(3);
+		list.addLast(4);
+		list.addLast(5);
+		list.addLast(6);
+		list.addLast(7);
+		list.addLast(8); 
+		list.display();
+		System.out.println("REMOVE END NTH");
+		System.out.println("N = " + list.n);
+		list.displayAns();
+	}
+}

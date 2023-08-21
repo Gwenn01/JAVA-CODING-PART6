@@ -1,0 +1,115 @@
+class Linked{
+	Node head;
+	int size;	
+	public Linked(){
+		this.size = 0;
+	}
+	boolean isEmpty(){
+		return size == 0;
+	}
+	// add last
+	void addLast(int val){
+		Node node = new Node(val);
+		if(isEmpty()){
+			head = node;
+		}else{
+			Node temp = head;
+			while(temp.next != null){
+				temp = temp.next;
+			}
+			temp.next = node;
+		}
+		size++;
+	}
+	// IS PALINDROME THE LINKED LIST
+	boolean isPalindrome(){
+		if(head == null){
+			return false;
+		}
+		if(head.next == null){
+			return true;
+		}
+		// Find the middle
+		Node slow = head;
+		Node fast = head;
+		Node prev = null;
+		while(fast != null && fast.next != null){
+			prev = slow;
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+		Node mid = slow;
+
+		// reverse
+		Node toConnect = prev;
+		Node current = slow;
+		Node Next = current.next;	
+		while(current != null){
+			current.next = prev;
+			prev = current;
+			current = Next;
+			if(Next != null){
+				Next = Next.next;
+			}
+		}
+		toConnect.next = prev;
+		// marks the start of last temp so that             we can stop the first temp
+		Node marks = toConnect.next;
+		// comparing			
+		Node firstTemp = head;
+		Node lastTemp = toConnect.next;
+	    
+	    while(firstTemp != marks && lastTemp != null){
+	    	if(firstTemp.val != lastTemp.val){
+	    		return false;
+	    	}
+	    	firstTemp = firstTemp.next;
+	    	lastTemp = lastTemp.next;
+	    }
+	    
+		return true;
+	}
+	//
+	// display
+	void display(){
+		Node temp = head;
+		if(temp == null){
+			return;
+		}
+		System.out.println("Head: " + head.val);
+		while(temp.next != null){
+			System.out.print(temp.val + " -> ");
+			temp = temp.next;
+		}
+		System.out.print(temp.val);
+		System.out.print(" End");
+	} 
+	private class Node{
+		int val;
+		Node next;
+		public Node(){
+		}
+		public Node(int val){
+			this.val = val;
+		}
+		public Node(int val, Node next){
+			this.val = val;
+			this.next = next;
+		}
+	}
+}
+public class Main {
+	public static void main(String[] args) {
+		Linked list = new Linked();
+		list.addLast(1); 
+	    list.addLast(1);
+	    list.addLast(3);
+	    list.addLast(2);
+	    list.addLast(1); 
+		list.display();
+		System.out.println();
+		boolean ans = list.isPalindrome();
+		System.out.println("IsPalindrome: " + ans);
+		
+	}
+}

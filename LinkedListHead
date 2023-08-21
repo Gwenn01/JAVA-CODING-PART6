@@ -1,0 +1,128 @@
+class Linked{
+	Node head;
+	int size;	
+	public Linked(){
+		this.size = 0;
+	}
+	boolean isEmpty(){
+		return size == 0;
+	}
+	// add last
+	void addLast(int val){
+		Node node = new Node(val);
+		if(isEmpty()){
+			head = node;
+		}else{
+			Node temp = head;
+			while(temp.next != null){
+				temp = temp.next;
+			}
+			temp.next = node;
+		}
+		size++;
+	}
+	// add first
+	void addFirst(int val){
+		Node node = new Node(val);
+		node.next = head;
+		head = node;
+		size += 1;
+	}	
+	// add in index
+	void addIndex(int index, int val){
+		if(index == 0){
+			addLast(val);
+			return;
+		}
+		if(index == size){
+			addFirst(val);
+		}
+		Node temp = head;
+		for(int i = 1; i < index; i++){
+			temp = temp.next;
+		}
+		Node node = new Node(val, temp.next);		
+	   temp.next = node;
+	   size += 1;
+	}
+	// remove first
+	void removeFirst(){
+		head = head.next;
+		size =- 1;
+	}
+	// remove last
+	void removeLast(){
+		Node temp = head;
+		if(size == 1){
+			removeFirst();
+			return;
+		}
+		while(temp.next.next != null){
+			temp = temp.next;
+		}
+		temp.next = null;
+		size =- 1;
+	}
+	// romove index
+	void removeIndex(int index){
+		Node temp = head;
+		if(size == 1){
+			removeFirst();
+			return;
+		}
+		for(int i = 1; i < index; i++){
+			temp = temp.next;
+		}
+		temp.next = temp.next.next;
+		size =-1;
+	}
+	// display
+	void display(){
+		Node temp = head;
+		if(temp == null){
+			return;
+		}
+		System.out.println("Head: " + head.val);
+		while(temp.next != null){
+			System.out.print(temp.val + " -> ");
+			temp = temp.next;
+		}
+		System.out.print(temp.val);
+		System.out.print(" End");
+	}
+	private class Node{
+		int val;
+		Node next;
+		public Node(int val){
+			this.val = val;
+		}
+		public Node(int val, Node next){
+			this.val = val;
+			this.next = next;
+		}
+	}
+}
+public class Main {
+	public static void main(String[] args) {
+		Linked list = new Linked();
+	    list.addFirst(1);
+		list.addLast(2);
+	    list.addLast(3);
+	    list.addLast(5);
+	    list.addLast(6);
+		list.addLast(7);
+	    list.addLast(8);
+	    list.addLast(9);
+	    list.addIndex(3, 4);
+	 // list.removeFirst();
+	//  list.removeFirst();
+	   //list.removeLast();
+	 //  list.removeIndex(2);
+	    list.display();
+	 
+	}
+}x(2);
+	    list.display();
+	 
+	}
+}

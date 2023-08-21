@@ -1,0 +1,88 @@
+class Stack{
+	int capacity = 2;
+	int stack[] = new int[capacity];
+	int size = 0;
+	
+	public Stack(){};
+	public Stack(int capacity){
+		this.capacity = capacity;
+	}
+	boolean isEmpty(){
+		return size == 0;
+	}
+	int size(){
+		return size;
+	}
+	// adding
+	void push(int data){
+		if(isFull()){
+			extend();
+		}
+		stack[size] = data;
+		size++;
+	}
+	boolean isFull(){
+		return size == capacity;
+	}
+	void extend(){
+		capacity *= 2;
+		int newStack[] = new int[capacity];
+		for(int i = 0; i < stack.length; i++){
+			newStack[i] = stack[i];
+		}
+		stack = newStack;
+	}
+	// removing
+	int pop(){
+		if(isEmpty()){
+		    System.out.println("Stack Empty");
+		   return -1;	
+		}
+			if(isLess()){
+				shrink();
+			}
+			int data = stack[size-1];
+			stack[size-1] = 0;
+			size--;
+			return data;
+	}
+	boolean isLess(){
+		return size <= capacity / 2;
+	}
+	void shrink(){
+		capacity /= 2;
+			int newStack[] = new int[capacity];
+			for(int i = 0; i < newStack.length; i++){
+				newStack[i] = stack[i];
+			}
+			stack = newStack;
+	}
+	//
+	int peek(){
+		int data = stack[size-1];
+		return data;
+	}
+	void show(){
+		System.out.print("[");
+		for(int i = 0; i < size; i++){
+			System.out.print(stack[i]);
+			if(i != size-1){
+				System.out.print(", ");
+			}
+		}
+		System.out.println("]");
+	}
+}
+public class Main {
+	public static void main(String[] args) {
+		Stack nums = new Stack();
+		nums.push(5);
+		nums.push(10);
+	    nums.push(15);
+	    nums.push(17);
+		nums.push(6);
+	    nums.push(9);
+	    System.out.println(nums.capacity);
+		nums.show();
+	}
+}

@@ -1,0 +1,102 @@
+class SegmentTree{
+	class Node{
+		int data;
+		int startInterval;
+		int endInterval;
+		Node left;
+		Node right;
+		
+		public Node(int startInterval, int endInterval){
+			this.startInterval = startInterval;
+			this.endInterval = endInterval;
+		}
+	}
+	// ROOT NODE
+	private Node root;
+	
+	// CONSTRUCTOR
+	public SegmentTree(int[] arr){
+		this.root = constructTree(arr, 0, arr.length-1);
+	}
+	
+	public Node constructTree(int[] arr, int start, int end){
+	   if(start == end){
+	   	Node node = new Node(start, end);
+	   	node.data = arr[start];
+	   	return node;
+	   }
+	   // create a node
+	   Node node = new Node(start, end);
+	   
+	   int mid = (start + end) / 2;
+	   node.left = constructTree(arr, start, mid);
+	    node.right = constructTree(arr, mid+1, end);
+	    // assign the data after reaching the end
+	    node.data = node.left.data + node.right.data;
+	    return node;
+	}
+	// SUM OF RANGE
+	public int sumOfRange(int rangeS, int rangeE){
+		return sumOfRange(root, rangeS, rangeE);
+	}
+	//
+	public int sumOfRange(Node node, int rangeS, int rangeE){
+		// base condition if we find in a range
+		if(node.startInterval >= rangeS && node.endInterval <= rangeE){
+			return node.data;
+		}
+		// out of range we return 0	
+// if our start and end interval is less than to our rangeS, meaning its out of range and oposite in greater than in rangeE
+		if((node.startInterval < rangeS && node.endInterval < rangeS) || (node.startInterval > rangeE && node.endInterval > rangeE)){
+			return 0;
+		}
+		// recursion call
+		return sumOfRange(node.left, rangeS, rangeE) + sumOfRange(node.right, rangeS, rangeE);
+		
+	}
+	// UPDATE THE ITEM IN NODE OR ARR
+	public void update(int index, int value){
+		root.data = update(root, index, value);
+	}
+	private int update(Node node, int index, int value){
+		// check if we are in ranfe
+		if(index >= node.startInterval && index <= node.endInterval){
+		   // update the value
+		   if(index == startInterval && index == endInterval){
+		   	node.data = value;
+		   	return node.data;
+		   }else{
+		   	// traversal till the we meet the index
+		   	int left = update(node.left, index, value);
+		   	int right = update(node.right, index, value);
+		   	// every time it returning update the previous value
+		   	node.data = left + right;
+		   	return node.data;
+		   }
+		}
+		// if out of range just return
+		return node.data;	
+	}
+	// DISPLAY
+	public void display(){
+		display(root);
+	}
+	public void display(Node node){
+		if(node == null){
+			return;	
+		}	
+		System.out.println("Interval[" + node.startInterval + ", " + node.endInterval + "] " + "Data: " + node.data);
+		display(node.left);
+		display(node.right);
+	}
+}
+public class Main {
+	public static void main(String[] args) {
+	// Segment Tree, working with range
+		int arr[] = {5, 7, 10, 3, 1, 2, 4, 15};
+			SegmentTree tree = new SegmentTree(arr);
+			
+		System.out.println("Ans: " + tree.sumOfRange(2, 6));
+		tree.display();
+	}
+}

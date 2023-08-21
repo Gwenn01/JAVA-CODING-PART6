@@ -1,0 +1,79 @@
+import java.util.*;
+// push O(n)
+// pop O(1);
+// peek O(1);
+class MyStack{
+	Queue<Integer> queue1 = new LinkedList<>();
+	Queue<Integer> queue2 = new LinkedList<>();
+	public MyStack(){
+	}
+	public void push(int x){
+		while(!queue1.isEmpty()){
+			queue2.add(queue1.remove());
+		}
+		queue1.add(x);
+		while(!queue2.isEmpty()){
+			queue1.add(queue2.remove());
+		}
+	}
+	public int pop(){
+		int data = queue1.remove();
+		return data;
+	}
+	public int peek(){
+		int data = queue1.peek();
+		return data;
+	}
+	public boolean empty(){
+		return queue1.isEmpty();
+	}
+}
+// push O(1)
+// pop O(n)
+// peek O(n)
+class MyStacks{
+	Queue<Integer> queue1 = new LinkedList<>();
+	Queue<Integer> queue2 = new LinkedList<>();
+	public MyStacks(){
+	}
+	public void push(int x){
+		queue1.add(x);
+	}
+	public int pop(){
+		while(queue1.size() > 1){
+			queue2.add(queue1.remove());
+		}
+		int data = queue1.remove();
+		while(!queue2.isEmpty()){
+			queue1.add(queue2.remove());
+		}
+		return data;
+	}
+	public int peek(){
+		while(queue1.size() > 1){
+			queue2.add(queue1.remove());
+		}
+		int data = queue1.remove();
+		while(!queue2.isEmpty()){
+			queue1.add(queue2.remove());
+		}
+		queue1.add(data);
+		return data;
+	}
+	public boolean empty(){
+		return queue1.isEmpty();
+	}
+}
+public class Main {
+	public static void main(String[] args) {
+		MyStacks nums = new MyStacks();
+		nums.push(1);
+		nums.push(2);
+	    nums.push(3);
+	    nums.push(4);
+		nums.push(5);
+	    System.out.println(nums.peek());
+	    System.out.println(nums.pop());
+	    System.out.println(nums.pop());
+	}
+}

@@ -1,0 +1,28 @@
+public class Main {
+	public static void main(String[] args) {
+		int nums[] = {1, 2, 3, 4, 5};
+		for(int n: runningSum(nums)){
+			System.out.print(n + " ");
+		}
+	}
+	//O(n^2)
+	static int[] runningSum(int[] nums){
+		int temp[] = new int[nums.length];
+		
+		for(int i = 0; i < nums.length; i++){
+			int sum = 0;
+			for(int j = 0; j <= i; j++){
+				sum += nums[j];
+			}
+			temp[i] = sum;
+		}
+		return temp;
+	}
+	//O(n)
+	static int[] runningSumm(int[] nums){
+		for(int i = 1; i < nums.length; i++){
+			nums[i] = nums[i] + nums[i-1];
+		}
+		return nums;
+	}
+}

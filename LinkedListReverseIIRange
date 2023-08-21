@@ -1,0 +1,117 @@
+class Linked{
+	Node head;
+	int size;	
+	public Linked(){
+		this.size = 0;
+	}
+	boolean isEmpty(){
+		return size == 0;
+	}
+	// add last
+	void addLast(int val){
+		Node node = new Node(val);
+		if(isEmpty()){
+			head = node;
+		}else{
+			Node temp = head;
+			while(temp.next != null){
+				temp = temp.next;
+			}
+			temp.next = node;
+		}
+		size++;
+	}
+	// REVERSE LINKED LIST II
+	Node reverse(Node head, int left, int right){
+      if(left == right){
+      	return head;
+      }
+      Node current = head;
+      Node prev = null;
+      // so we need to go til the first range
+      for(int i = 0; i < left -1 && current != null; i++){
+      	prev = current;
+      	current = current.next;
+      }
+      // we need to store the node before our new end so that we can connect it in the last of reverse
+      Node last = prev;
+      // storing new end to connect in remaining nodes
+      Node newEnd = current;
+      
+      Node Next = current.next;
+      for(int i = 0; i < right - left + 1 && current != null; i++){
+           current.next = prev;
+           prev = current;
+           current = Next;
+           if(Next != null){
+           	Next = Next.next;
+           }	
+      }
+      if(last != null){
+      	last.next = prev;
+      }else{
+          head = prev;	
+      }
+      newEnd.next = current;
+      return head;
+	}	
+	// DISPLAY ANS
+	void displayAns(){
+		int left = 2;
+		int right = 4;
+		Node temp = reverse(head, left, right);
+		
+		if(temp == null){
+			return;
+		}
+		System.out.println("Head: " + head.val);
+		while(temp.next != null){
+			System.out.print(temp.val + " -> ");
+			temp = temp.next;
+		}
+		System.out.print(temp.val);
+		System.out.print(" End");
+	
+	}
+	// display
+	void display(){
+		Node temp = head;
+		if(temp == null){
+			return;
+		}
+		System.out.println("Head: " + head.val);
+		while(temp.next != null){
+			System.out.print(temp.val + " -> ");
+			temp = temp.next;
+		}
+		System.out.print(temp.val);
+		System.out.print(" End");
+	} 
+	private class Node{
+		int val;
+		Node next;
+		public Node(){
+		}
+		public Node(int val){
+			this.val = val;
+		}
+		public Node(int val, Node next){
+			this.val = val;
+			this.next = next;
+		}
+	}
+}
+public class Main {
+	public static void main(String[] args) {
+		Linked list = new Linked();
+		list.addLast(1); 
+	    list.addLast(2);
+	    list.addLast(3);
+	    list.addLast(4);
+	    list.addLast(5);
+		list.display();
+		System.out.println();
+		System.out.println("REVERSE");
+		list.displayAns();
+	}
+}

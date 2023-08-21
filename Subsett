@@ -1,0 +1,29 @@
+import java.util.*;
+public class Main {
+	public static void main(String[] args) {
+		int arr[] = {1, 2, 3};
+		for(List<Integer> list: subset(arr)){
+			System.out.println(list);
+		}
+	}
+	static List<List<Integer>> subset(int[] arr){
+		List<List<Integer>> container = new ArrayList<>();
+		// create empty list
+		container.add(new ArrayList<>());
+		for(int i = 0; i < arr.length; i++){
+			// store the size to prevent infinite loopsi
+			int size = container.size();
+			// iterate through the size of container
+			for(int j = 0; j < size; j++){
+			List<Integer> list = new ArrayList<>();
+			// add the prev
+			list.addAll(container.get(j));
+			// add the current
+			list.add(arr[i]);
+			container.add(list);
+			}
+		}
+		
+		return container;
+	}
+}

@@ -1,0 +1,19 @@
+public class Main {
+	public static void main(String[] args) {
+		System.out.println(evenFibSum(450));
+	}
+	static int evenFibSum(int n){
+		int a = 0, b = 1, c = 0;
+		int sum = 0;
+		while(c < n){
+			c = a + b;
+			if(c % 2 == 0 && c < n){
+				System.out.println(c);
+				sum += c;
+			}
+			a = b;
+			b = c;
+		}
+	return sum;
+	}
+}

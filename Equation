@@ -1,0 +1,13 @@
+public class Main {
+	public static void main(String[] args) {
+		int ans = equation(8);
+		System.out.println(ans);
+	}
+	static int equation(int a){
+		if(a <= 5){
+			return 12;
+		}
+
+		return equation(a-2) * equation(a-1);
+	}
+}

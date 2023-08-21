@@ -1,0 +1,41 @@
+import java.util.*;
+public class Main {
+	public static void main(String[] args) {
+		int nums1[] = {1,2,3,0,0,0};
+		int m = 2;
+		int nums2[] = {2,5,6};
+	    int n = 3;
+	    merge(nums1, m, nums2, n);
+	    System.out.println(Arrays.toString(nums1));
+	}
+	static void merge(int[] nums1, int m, int[] nums2, int n){
+		int i = 0,  j = 0, k = 0;
+		int temp[] = new int[m+n];
+		
+		while(i < m && j < n){
+			if(nums1[i] < nums2[j]){
+				temp[k] = nums1[i];
+				i++;
+			}else{
+				temp[k] = nums2[j];
+				j++;
+			}
+			k++;
+		}
+		while(i < m){
+			temp[k] = nums1[i];
+			i++;
+			k++;
+		}
+		while(j < n){
+			temp[k] = nums2[j];
+			j++;
+			k++;
+		}
+		
+		for(int h = 0; h < temp.length; h++){
+			nums1[h] = temp[h];
+		}
+		
+	}
+}

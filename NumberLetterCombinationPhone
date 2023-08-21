@@ -1,0 +1,25 @@
+import java.util.*;
+public class Main {
+	public static void main(String[] args) {
+		ArrayList<String> ans = combi("", "23");
+		System.out.println(ans);
+	}
+	static ArrayList<String> combi(String p, String up){
+	if (up.isEmpty()) {
+            ArrayList<String> list = new ArrayList<>();
+            list.add(p);
+            return list;
+        }
+
+        int digits = up.charAt(0) - '0';
+        ArrayList<String> list = new ArrayList<>();
+        
+        for (int i = (digits - 1) * 3; i < digits * 3; i++) {
+            char ch = (char) ('a' + i);
+            ArrayList<String> combinations = combi(p + ch, up.substring(1));
+            list.addAll(combinations);
+        }
+
+        return list;
+	}
+}

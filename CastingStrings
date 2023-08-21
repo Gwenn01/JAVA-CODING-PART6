@@ -1,0 +1,19 @@
+public class Main {
+	public static void main(String[] args) {
+		String s = "What the heck are you doing bro";
+		s = convert(s);
+		System.out.println(s);
+	}
+	static String convert(String s){
+		String result = "";
+		char c[] = s.toCharArray();
+		for(int i = 0; i < c.length; i++){
+			if(c[i] == ' '){
+				c[i+1] = Character.toUpperCase(c[i+1]);
+			}
+			result += c[i];
+		}
+		
+		return result;
+	}
+}

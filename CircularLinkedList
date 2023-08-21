@@ -1,0 +1,70 @@
+class Linked{
+	Node head;
+	Node tail;
+	// add
+	void add(int val){
+		Node node = new Node(val);
+		if(head == null){
+			head = node;
+			tail = node;
+			return;
+		}
+		tail.next = node;
+		node.next = head;
+		tail = node;
+	}
+	// remove
+	void remove(){
+		if(head == null){
+			return;
+		}
+		head = head.next;
+		tail.next = head;
+	}
+	// remove value
+	void removeValue(int val){
+		Node temp = head;
+		if(temp.val == val){
+			remove();
+			return;
+		}
+		while(temp.next.val != val){
+			temp = temp.next;
+		}
+		temp.next = temp.next.next;		
+	}
+	// display
+	void display(){
+		Node temp = head;
+		if(head != null){
+			do{
+				System.out.print(temp.val + " -> ");
+				temp = temp.next;
+			}while(temp != head);
+		}
+	}
+	private class Node{
+		int val;
+		Node next;
+		public Node(int val){
+			this.val = val;
+		}
+		public Node(int val, Node next){
+			this.val = val;
+			this.next = next;
+		}		
+	}
+}
+public class Main {
+	public static void main(String[] args) {
+		Linked list = new Linked();
+		list.add(5);
+		list.add(7);
+		list.add(9);
+	    list.add(14);
+		list.add(23);
+		list.add(50);
+		list.removeValue(50);
+		list.display();
+	}
+}

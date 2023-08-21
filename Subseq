@@ -1,0 +1,15 @@
+public class Main {
+	public static void main(String[] args) {
+		String s = "abc";
+		subseq(s, "");
+	}
+	static void subseq(String s, String r){
+		if(s.isEmpty()){
+			System.out.println(r);
+			return;
+		}
+		char c = s.charAt(0);
+		subseq(s.substring(1), r + c);
+		subseq(s.substring(1), r);
+	}
+}

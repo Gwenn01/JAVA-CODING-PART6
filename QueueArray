@@ -1,0 +1,74 @@
+import java.util.*;
+class Queue{
+	int queue[] = new int[5];
+	int size = 0;
+	int head = 0;
+	int tail = 0;
+	
+	void add(int data){
+	   if(isFull()){
+	   	exceed();
+	   }
+	   queue[tail] = data;
+	   System.out.println(tail);
+	   tail = (tail+1) % queue.length;
+	   size++;
+	}
+	int remove(){
+		int data = queue[head];
+		head = (head + 1) % queue.length;
+		size--;
+		return data;
+	}
+	void show(){
+	    if(isEmpty()){
+	    	System.out.println("Is Empty");
+	    }
+	    int i = head;
+	    System.out.print("[");
+	    do{
+	    	System.out.print(queue[i]);
+	    	i = (i+1) % queue.length;
+	    	if(i != tail){
+	    		System.out.print(", ");
+	    	}
+	    }while(i != tail);
+	    System.out.print("]");
+	}
+	boolean isEmpty(){
+		return size == 0;
+	}
+	boolean isFull(){
+		return size == queue.length;
+	}
+	void exceed(){
+		int newQueue[] = new int[queue.length*2];
+		int j = 0;
+		int i = head;
+		do{
+	    	newQueue[j] = queue[i];
+	    	i = (i +1) % queue.length;
+	    	j++;
+	    }while(i != tail);
+		
+	queue = newQueue;
+	head = 0;
+	tail = size;
+	}
+}
+public class Main {
+	public static void main(String[] args) {
+		Queue list = new Queue();
+		list.add(5);
+		list.add(6);
+		list.add(7);
+		list.add(9);
+		list.add(15);
+		list.remove();
+		list.remove();
+		list.add(1);
+		list.add(2);
+		
+		list.show();
+	}
+}

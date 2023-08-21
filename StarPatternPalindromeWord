@@ -1,0 +1,55 @@
+import java.util.*;
+public class Main {
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		System.out.print("Enter word that atleast 3 letter, odd length, and palindrome: ");
+		String input = s.nextLine();
+		if(inputs(input)){
+		    display(input);					
+		}
+	     					
+	}
+	static boolean inputs(String input){
+		boolean result = true;
+		if(input.length() < 3){
+			System.out.println("Please input atleast 3 Character");
+			result = false;
+		}
+		if(input.length() % 2 == 0){
+			System.out.println("Character count is not odd number");
+	    	result = false;
+		}
+		if(!isPalin(input)){
+			System.out.println(input + " is not palindrome word");
+		    result = false;
+		}
+		
+		return result;
+	}
+	static boolean isPalin(String input){
+		char c[] = input.toCharArray();
+		String result = "";
+		for(int i = c.length-1; i >= 0; i--){
+			result += c[i];
+		}
+		
+		return result.equals(input);
+	}
+	static void display(String input){
+		char in[] = input.toCharArray();
+		int length = in.length;
+		int mid = (in.length / 2);
+		System.out.println(length);
+		
+		for(int i = 0; i < length; i++){
+			for(int j = 0; j < length; j++){
+				if(i == j || j == mid || j == length-1-i){
+					System.out.print(in[i]);
+				}else{
+					System.out.print(" ");
+				}
+			}
+			System.out.println();
+		}
+	}
+}

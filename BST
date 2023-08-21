@@ -1,0 +1,72 @@
+class BinarySearchTree{
+	class Node{
+		private int val;
+		private int height = 0;
+		public Node left;
+		public Node right;
+		
+		public Node(int val){
+			this.val = val;
+		}
+		int getValue(){
+			return this.val;
+		}
+	}
+	
+	public BinarySearchTree(){		
+	}
+		
+	// ROOT
+	private Node root;
+	
+	// INSERT USING RECURSION
+	void insertR(int val){
+		if(root == null){
+			root = new Node(val);
+		}
+		insertR(val, root);
+	}
+	Node insertR(int val, Node node){
+		if(node == null){
+			Node newNode = new Node(val);
+			return newNode;
+		}
+		if(val < node.val){
+			node.left = insertR(val, node.left);
+		}
+		if(val > node.val){
+			node.right = insertR(val, node.right);
+		}
+		
+	    node.height = Math.max(getHeight(node.left), getHeight(node.right)) + 1;
+		return node;
+	}
+	// GET HEIGHT
+	 int getHeight(){
+		return getHeight(root);
+	}
+	int getHeight(Node node){
+			if(node == null){
+				return -1;
+			}
+			return  node.height;
+	}
+	// DISPLAY
+	void display(){
+		display(root, "Root Node: ");
+	}
+	void display(Node node, String details){
+		if(node == null){
+			return;
+		}
+	System.out.println(details + node.val);
+		display(node.left, "Left child of " + node.val + ": ");
+		display(node.right, "Right child of " + node.val + ": ");
+	}	
+	
+}
+public class Main {
+	public static void main(String[] args) {
+		BinarySearchTree bst = new BinarySearchTree();
+	}
+}

@@ -1,0 +1,98 @@
+import java.util.*;
+class ATM{
+	int account;
+	int balance;
+	int password;
+
+	void display(){
+		System.out.println("===MENU===");
+		System.out.println("1. Check Bal");
+		System.out.println("2. Withdraw");
+		System.out.println("3. Deposit");
+		System.out.println("4. Exit");
+		
+	}
+	void checkBal(){
+		if(balance == 0){
+			System.out.println("You Dont Have Balance");
+		}else{
+			System.out.println("Your Balance: " + balance);
+		}
+	}	
+	void withdraw(){
+		Scanner s = new Scanner(System.in);
+		System.out.print("Enter Amount: ");
+		int amount = s.nextInt();
+		if(amount > balance){
+			System.out.println("You Don't have Enough Balance");
+		}else{
+			balance = balance - amount;
+			System.out.println("Your Balance: " + balance);
+		}		
+	}
+	void deposit(){
+		Scanner s = new Scanner(System.in);
+		System.out.print("Enter Amount: ");
+		int amount = s.nextInt();
+		balance = balance + amount;
+		System.out.println("Your Balance: " + balance);		
+	}	
+}
+//
+class User extends ATM{
+	int account;
+	int password;
+	public User(int account, int password){
+		this.account = account;
+		this.password = password;
+	}
+	public User(int account, int password, int balance){
+		this.account = account;
+		this.password = password;
+		super.balance = balance;
+	}
+	void process(){
+		Scanner s = new Scanner(System.in);
+		int option;
+		do{
+		   display();
+		   System.out.print("Option: ");
+		   option = s.nextInt();
+		   switch(option){
+		   	case 1:
+		   		checkBal();
+		   	break;
+		   	case 2:
+		   	    withdraw();
+		   	break;
+		   	case 3:
+		   		deposit();
+		   	break;
+		   	default:
+		   		System.out.println("Invalid");
+		   }	
+		   System.out.println();	
+		}while(option != 4);
+	}
+}	
+public class Main {
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		System.out.print("Enter User: ");
+		int user = s.nextInt();
+		System.out.print("Enter Password: ");
+		int pass = s.nextInt();
+		
+		User user1 = new User(1, 123);
+		User user2 = new User(2, 423, 5000);
+		
+		if(user == user1.account && pass == user1.password){
+		user1.process();	
+		}else if(user == user2.account && pass == user2.password){	
+		user2.process();			
+		}else{
+			System.out.println("INVALID ACCOUNT");
+		}
+		
+	}
+}

@@ -1,0 +1,167 @@
+import java.util.*;
+class BinaryTree{
+	class Node{
+		int val;
+		Node left;
+		Node right;
+		public Node(int val){
+			this.val = val;
+		}
+	}
+	
+	// ROOT
+	Node root;
+	
+	// ADDING
+	void addRoot(Scanner s){
+		System.out.print("Enter Root Value: ");
+		int value = s.nextInt();
+		root = new Node(value);
+		addLeftRight(s, root);
+	}
+	void addLeftRight(Scanner s, Node node){
+		// add left
+		System.out.println("Do you want to enter left of " + node.val + " (y/n)");
+		char left = s.next().charAt(0);
+		if(left == 'y'){
+			System.out.print("Enter Left Value: ");
+			int value = s.nextInt();
+			node.left = new Node(value);
+			addLeftRight(s, node.left);
+	}
+	// add right
+		System.out.println("Do you want to enter right of " + node.val + " (y/n)");
+		char right = s.next().charAt(0);
+		if(right == 'y'){
+			System.out.print("Enter Right Value: ");
+			int value = s.nextInt();
+			node.right = new Node(value);
+			addLeftRight(s, node.right);
+		}
+	}
+	// INSERTING
+	// insert ROOT
+	void insertRoot(int val){
+		root = new Node(val);
+	}
+	// insert LEFT
+	void insertLeft(int index, int val){
+		insertLeft(root, index, val);
+	}
+	void insertLeft(Node node, int index, int val){
+		if(node == null){
+			return;
+		}
+		if(node.val == index){
+			node.left = new Node(val);
+			return;
+		}
+		insertLeft(node.left, index, val);
+		insertLeft(node.right, index, val);
+	}
+	// insert RIGHT
+	void insertRight(int index, int val){
+		insertRight(root, index, val);
+	}
+	void insertRight(Node node, int index, int val){
+		if(node == null){
+			return;
+		}
+		if(node.val == index){
+			node.right = new Node(val);
+			return;
+		}
+		insertRight(node.left, index, val);
+		insertRight(node.right, index, val);
+	}
+	// DISPLAY
+	void display(){
+		Node temp = root;
+		displays(temp);
+	}
+	void displays(Node node){
+		if(node == null){
+			return;
+		}
+		System.out.println(node.val);
+		displays(node.left);
+		displays(node.right);
+	}
+	// PRETTY DISPLAY
+	void prettyDisplay(){
+		prettyDisplay(root, 0);
+	}
+	void prettyDisplay(Node node, int level){
+		if(node == null){
+			return;
+		}
+		prettyDisplay(node.right, level + 1);
+		if(level != 0){
+			for(int i = 0; i < level-1; i++){
+				System.out.print("\t");	
+			}
+			System.out.println("----->" + node.val);
+		}else{
+			System.out.println(node.val);	
+		}
+		prettyDisplay(node.left, level + 1);
+	}
+	
+	// TRAVERSAL	
+	// PRE-ORDER TRAVERSAL
+	// N -> L -> R
+	void preOrder(){
+		preOrder(root);
+	}
+	void preOrder(Node node){
+		if(node == null){
+			return;
+		}
+		System.out.print(node.val + " -> ");
+		preOrder(node.left);
+		preOrder(node.right);
+	}
+	// INORDER TRAVERSAL
+	// L -> N -> R
+	void inOrder(){
+		inOrder(root);
+	}
+	void inOrder(Node node){
+		if(node == null) {
+			return;
+		}
+		inOrder(node.left);
+		System.out.print(node.val + " -> ");
+		inOrder(node.right);
+	}
+	// POST ORDER TRAVERSAL
+	// L -> R -> N
+	void postOrder(){
+		postOrder(root);
+	}
+	void postOrder(Node node){
+			if(node == null) {
+			return;
+		}
+		postOrder(node.left);	
+		postOrder(node.right);
+		System.out.print(node.val + " -> ");
+	}
+}
+public class Main {
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		
+		BinaryTree tree = new BinaryTree();
+		tree.addRoot(s);
+		tree.postOrder();
+		//tree.prettyDisplay();
+	}
+}stem.in);
+		
+		BinaryTree tree = new BinaryTree();
+		tree.addRoot(s);
+		tree.postOrder();
+		//tree.prettyDisplay();
+	}
+}

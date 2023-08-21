@@ -1,0 +1,26 @@
+import java.util.*;
+public class Main {
+	public static void main(String[] args) {
+		int num[] = {1, 2, 3};
+		List<List<Integer>> list = subset(num);
+		for(List<Integer> nums: list){
+			System.out.println(nums);
+		}
+	}
+	static List<List<Integer>> subset(int num[]){
+		List<List<Integer>> container = new ArrayList<>();
+		
+	    container.add(new ArrayList<>());
+	    
+	     for(int arr: num){
+	     	int length = container.size();
+	     	for(int j = 0; j < length; j++){
+	     		 List<Integer> list = new ArrayList<>(container.get(j));
+	     		 list.add(arr);
+	     		 container.add(list);
+	     		}	
+	     }
+	     
+	    return container;		
+	}
+}

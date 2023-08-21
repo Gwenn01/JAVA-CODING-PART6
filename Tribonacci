@@ -1,0 +1,22 @@
+public class Main {
+	public static void main(String[] args) {
+		int ans = tribonacci(5);
+		System.out.println(ans);
+	}
+	static int tribonacci(int n){
+		int sum = 0, a = 0, b = 1, c = 1;
+		if(n == 0 || n == 1){
+			return n;
+		}
+		if(n == 2){
+			return 1;
+		}
+		for(int i = 3; i <= n; i++){
+			sum = a+b+c;
+			a = b;
+			b = c;
+			c = sum;
+		}
+		return sum;
+	}
+}

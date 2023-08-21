@@ -1,0 +1,36 @@
+public class Main {
+	public static void main(String[] args) {
+		int heights[] = {2, 1, 5, 6, 2, 3};
+	//	int heights[] = {2, 4};
+	    int ans = largestRectangleArea(heights);	
+	    System.out.println("Largest Rectangle Area: " + ans);
+	}
+	public static int largestRectangleArea(int[] heights){
+		int max = 0;
+		for(int i = 0; i < heights.length; i++){
+			int area = heights[i];
+			// check the left to form rectangle
+			for(int j = i-1;i != 0 && j >= 0; j--){
+		        if(heights[i] <= heights[j]){
+		        	area = area + heights[i];
+		         }else{
+		         	break;
+		         }			
+			}
+			// check the right to form rectangle
+			for(int j = i+1;i != heights.length-1 && j < heights.length; j++){
+				 if(heights[i] <= heights[j]){
+		        	area = area + heights[i];
+		         }else{
+		         	break;
+		         }
+			}
+			// check what is biggest the current i or the rectangle
+			area = Math.max(area, heights[i]);
+			// then updated the max
+			max = Math.max(area, max);
+		}
+		
+		return max;
+	}
+}

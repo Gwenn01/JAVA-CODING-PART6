@@ -1,0 +1,18 @@
+public class Main {
+	public static void main(String[] args) {
+		int ans = countCommonFactor(10, 20);
+		System.out.println("Count: " + ans);
+	}
+	static int countCommonFactor(int a, int b){
+		int i = 1, count = 0;
+		while(i <= a && i <= b){
+			if(a % i == 0 && b % i == 0){
+				System.out.println("CF: " + i);
+				count++;
+			}
+			i++;
+		}
+		
+		return count;
+	}
+}

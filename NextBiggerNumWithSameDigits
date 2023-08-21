@@ -1,0 +1,29 @@
+public class Main {
+	public static void main(String[] args) {
+		int n = 513;
+		System.out.println(bigger(n));
+	}
+	static int bigger(int n){
+		String num = "";
+		num += n;
+		String hold;
+	    for(int i = num.length()-1; i > 0; i--){
+	    	hold = num;
+	    	char[] c = hold.toCharArray();
+	    	char temp = c[i];
+	    	c[i] = c[i-1];
+	    	c[i-1] = temp;
+	    	String compare = "";
+	    	for(int j = 0; j < c.length; j++){
+	    		compare += c[j];
+	    	}
+	    	int result = Integer.parseInt(compare);
+	    	if(result > n){
+	    		return result;
+	    	}
+	    }
+	    
+	    return -1;
+	}
+}}
+}

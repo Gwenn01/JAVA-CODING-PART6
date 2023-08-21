@@ -1,0 +1,27 @@
+public class Main {
+	public static void main(String[] args) {
+		boolean ans = happyNumber(5);
+		System.out.println("Is Happy Number: " + ans);
+	}
+	static boolean happyNumber(int n){
+		int slow = n;
+		int fast = n;
+		do{
+			slow = squared(slow);
+			fast = squared(squared(fast));
+		}while(slow != fast);
+		if(slow == 1){
+			return true;
+		} 
+		return false;
+	}
+	static int squared(int n){
+		int sum = 0;
+		while(n != 0){
+			int rem = n % 10;
+			sum = sum + (rem * rem);
+			n /= 10;
+		}
+		return sum;
+	}
+}

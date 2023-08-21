@@ -1,0 +1,14 @@
+public class Main {
+	public static void main(String[] args) {
+		String s = "abcd";
+		System.out.println(reverse(s));
+	}
+	static String reverse(String s){
+		// base condition
+		if(s.equals("")){
+			return s;
+		}
+		// add it when recursion is returning back
+		return reverse(s.substring(1)) + s.charAt(0);
+	}
+}

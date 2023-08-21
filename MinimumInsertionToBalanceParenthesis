@@ -1,0 +1,48 @@
+import java.util.*;
+public class Main {
+	public static void main(String[] args) {
+	     // one open equal to two close ( = )) 
+	     //String s = "(()))";
+	     String s = "(()))(()))()())))";
+	     int ans = minInsertions(s);
+	     System.out.println(ans);	
+	}
+	public static int minInsertions(String s) {
+       	Stack<Character> stack = new Stack<>();
+
+   	char ch[] = s.toCharArray();
+        
+		for(int i = 0; i < ch.length; i++){
+			System.out.println(stack);
+			if(ch[i] == '('){
+				stack.push(ch[i]);
+				stack.push(ch[i]);
+			}else{
+				if(!stack.isEmpty() && stack.peek() == '('){
+					stack.pop();
+				}else{
+					stack.push(ch[i]);
+				}					
+			}
+		}
+System.out.println(stack);
+		int count = 0;
+
+		while(!stack.isEmpty()){
+			if(stack.peek() == ')'){
+				stack.pop();
+				count++;
+				if(stack.isEmpty() || stack.peek() == '('){
+				   count++;	
+				}else{				
+					stack.pop();
+				}		
+			}else{
+				stack.pop();
+				count++;	
+			}
+		}
+		return count;
+   }	
+		
+}

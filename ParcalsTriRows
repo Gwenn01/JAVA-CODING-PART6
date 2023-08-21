@@ -1,0 +1,14 @@
+import java.util.*;
+public class Main {
+	public static void main(String[] args) {
+		System.out.println(getRow(3));
+	}
+	static List<Integer> getRow(int n){		     	List<Integer> list = new ArrayList<>();
+        int sum = 1;
+        for(int j = 0; j <= n; j++){
+	        list.add(sum);
+	        sum = sum * (n - j) / (j + 1);
+		}
+        return list;
+	}
+}

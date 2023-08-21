@@ -1,0 +1,99 @@
+class Linked{
+	Node head;
+	int size;	
+	public Linked(){
+		this.size = 0;
+	}
+	boolean isEmpty(){
+		return size == 0;
+	}
+	// add last
+	void addLast(int val){
+		Node node = new Node(val);
+		if(isEmpty()){
+			head = node;
+		}else{
+			Node temp = head;
+			while(temp.next != null){
+				temp = temp.next;
+			}
+			temp.next = node;
+		}
+		size++;
+	}
+	// MIDDLE OF LINKED LIST //
+	Node middleNode(){		
+		Node slow = head;
+		Node fast = head;
+		if(fast == null){
+			return null;
+		}
+		
+		while(fast.next != null){
+			slow = slow.next;	
+			if(fast.next.next != null){
+		   	 fast = fast.next.next;
+			}else{
+				fast = fast.next;	
+			}
+		}
+		Node middle = slow;
+		return middle;		
+	}
+	//
+	// display ans
+	void displayAns(){
+		Node ans = middleNode();
+		if(ans == null){
+			return;
+		}
+		while(ans != null){
+			System.out.print(ans.val + " -> ");
+			ans = ans.next;
+		}
+	}
+	//
+	// display
+	void display(){
+		Node temp = head;
+		if(temp == null){
+			return;
+		}
+		System.out.println("Head: " + head.val);
+		while(temp.next != null){
+			System.out.print(temp.val + " -> ");
+			temp = temp.next;
+		}
+		System.out.print(temp.val);
+		System.out.print(" End");
+	}
+	private class Node{
+		int val;
+		Node next;
+		public Node(int val){
+			this.val = val;
+		}
+		public Node(int val, Node next){
+			this.val = val;
+			this.next = next;
+		}
+	}
+}
+public class Main {
+	public static void main(String[] args) {
+		Linked list = new Linked();
+		list.addLast(1); 
+	    list.addLast(2);
+	    list.addLast(3);
+	    list.addLast(4); 
+	    list.addLast(5);
+		list.addLast(6);
+		list.display();
+		System.out.println();
+		System.out.println();
+		
+		System.out.println("Middle of Linked List: ");
+		System.out.println();
+		list.displayAns();
+	}
+}

@@ -1,0 +1,39 @@
+import java.util.*;
+public class Main {
+	public static void main(String[] args) {
+		int nums1[] = {4, 3, 1, 2};
+		int nums2[] = {2, 4, 9, 5};
+		int queries[][] = {
+			{4, 1},
+			{1, 2},
+			{2, 5}
+		};
+	System.out.println(Arrays.toString(maxSumQueries(nums1, nums2, queries)));	
+		
+		
+	}
+	static int[] maxSumQueries(int[] nums1, int[] nums2, int[][] queries){
+		// create a new arr to return
+		int result[] = new int[queries.length];
+		// iterate through the of queries	
+		for(int i = 0; i < queries.length; i++){
+			// return the max
+			result[i] = maxSum(nums1, nums2, queries[i]);
+		}
+		return result;
+	}
+	static int maxSum(int[] nums1, int[] nums2, int[] queries){
+		int max = -1, sum = -1;
+		for(int j = 0; j < nums1.length; j++){
+			// compare the nums1 and nums2 into the queries 
+			if(nums1[j] >= queries[0] && nums2[j] >= queries[1]){
+				sum = nums1[j] + nums2[j];
+			}
+			// then return the max of sum
+			if(sum > max){
+				max = sum;
+			}
+		}
+		return max;		
+	}
+}

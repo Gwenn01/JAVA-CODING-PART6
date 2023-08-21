@@ -1,0 +1,33 @@
+public class Main {
+	public static void main(String[] args) {
+		String s = "bcappledah";
+		String ans = remove(s);
+		System.out.println(ans);
+	}
+	static String remove(String s){
+		if(s.equals("")){
+			return s;
+		}
+		if(startWith(s, "apple")){
+			return remove(s.substring(5));
+		}else{
+			return s.charAt(0) + remove(s.substring(1));
+		}
+		
+	}
+	// check if start with the word
+	static boolean startWith(String s, String word){
+		char wordChar[] = word.toCharArray();
+		char sChar[] = s.toCharArray();
+		
+		boolean isStartWith = true;
+		
+		for(int i = 0; i < wordChar.length; i++){
+			if(wordChar[i] != sChar[i]){
+				isStartWith = false;
+				break;
+			}
+		}
+		return isStartWith;
+	}
+}

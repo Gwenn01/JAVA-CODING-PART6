@@ -1,0 +1,16 @@
+public class Main {
+	public static void main(String[] args) {
+		System.out.println(isEven(8642));
+	}
+	static boolean isEven(int n){
+		int rem;
+		while(n != 0){
+			rem = n % 10;
+			if(rem % 2 == 1){
+				return false;
+			}
+			n /= 10;
+		}
+		return true;
+	}
+}

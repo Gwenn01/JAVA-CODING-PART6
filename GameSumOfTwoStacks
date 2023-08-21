@@ -1,0 +1,46 @@
+import java.util.*;
+public class Main {
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+            System.out.print("Enter the Max: ");
+			int x = s.nextInt();
+			System.out.print("Enter length a: ");
+			int n = s.nextInt();
+			System.out.print("Enter length b: ");
+			int m  = s.nextInt();
+			int[] a = new int[n];
+			int[] b = new int[m];
+			for(int j = 0; j < a.length; j++){
+				System.out.print("a value" + (j+1) + " : ");
+				a[j] = s.nextInt();
+			}
+			System.out.println();
+			for(int j = 0; j < b.length; j++){
+				System.out.print("b value" + (j+1) + " : ");
+				b[j] = s.nextInt();
+			}
+			
+			// the count, when the sum is greather than or equal to the max
+	System.out.print("The Count of Sum: ");
+			int ans = twoStack(x, a, b);
+			System.out.println(ans);
+			System.out.println();
+	}
+	static int twoStack(int x, int[] a, int[] b){
+		return helper(x, a, b, 0, 0) -1;
+	}
+	static int helper(int max, int[] a, int[] b, int sum, int count){
+		// base case
+		if(sum > max){
+			return count;
+		}
+		if(a.length == 0 || b.length == 0){
+			return count;
+		}
+		// sum arr  til reach max
+		int ans1 = helper(max, Arrays.copyOfRange(a, 1, a.length), b, sum + a[0], count + 1);
+			int ans2 = helper(max, a, Arrays.copyOfRange(b, 1, b.length), sum + b[0], count + 1);
+    	return Math.max(ans1, ans2);
+	}
+	
+}
